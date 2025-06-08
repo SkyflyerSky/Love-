@@ -1,0 +1,92 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feliz Cumpleaños</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background: linear-gradient(to bottom right, #ffe6f0, #fff0f5);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    h1 {
+      font-size: 3rem;
+      color: #d63384;
+      text-align: center;
+      margin: 0;
+      z-index: 10;
+    }
+
+    .rose {
+      position: absolute;
+      width: 40px;
+      animation: fall linear infinite;
+      opacity: 0.8;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-100px) rotate(0deg);
+        opacity: 0;
+      }
+      100% {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Feliz cumpleaños, mi amor 💖</h1>
+
+  <canvas id="confetti-canvas"></canvas>
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <script>
+    // Lanzar confeti
+    const duration = 5 * 1000;
+    const end = Date.now() + duration;
+
+    (function frame() {
+      confetti({
+        particleCount: 5,
+        angle: 60,
+        spread: 55,
+        origin: { x: 0 },
+      });
+      confetti({
+        particleCount: 5,
+        angle: 120,
+        spread: 55,
+        origin: { x: 1 },
+      });
+
+      if (Date.now() < end) {
+        requestAnimationFrame(frame);
+      }
+    })();
+
+    // Mostrar pétalos de rosa
+    const roseImg = 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Red_Rose_Flower.png/600px-Red_Rose_Flower.png';
+
+    for (let i = 0; i < 20; i++) {
+      const rose = document.createElement('img');
+      rose.src = roseImg;
+      rose.className = 'rose';
+      rose.style.left = Math.random() * 100 + 'vw';
+      rose.style.animationDuration = (4 + Math.random() * 4) + 's';
+      document.body.appendChild(rose);
+    }
+  </script>
+</body>
+</html>
